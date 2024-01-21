@@ -1,12 +1,15 @@
-import { Layout } from '@/components/layout'
 import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme'
+import { UserProvider } from './context/userContext'
+import { Routes } from '@/routes/routes'
 
 export function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout />
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
+    </UserProvider>
   )
 }
 

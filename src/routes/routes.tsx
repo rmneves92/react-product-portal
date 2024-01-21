@@ -1,33 +1,34 @@
-import React, { FunctionComponent } from 'react'
-import routeConfig from './routes-list'
-import { BrowserRouter, Route, Routes as DomRoutes } from 'react-router-dom'
+import { FC } from 'react'
+import { Routes as DomRoutes } from 'react-router-dom'
+import { PrivateRoute } from './private-route'
+import { Route } from 'react-router-dom'
+import { Login } from '@/pages/login'
+import { Home } from '@/pages/home'
+import { AddProduct } from '@/pages/add-product'
 
-export const renderMergedProps = (
-  component: FunctionComponent,
-  ...rest: any[]
-) => {
-  const finalProps = Object.assign({}, ...rest)
-
-  return React.createElement(component, finalProps)
-}
-
-export function Routes() {
+export const Routes: FC = () => {
   return (
-    <BrowserRouter>
-      <DomRoutes>
-        {routeConfig.map((route, i) => (
-          <Route
-            key={i}
-            Component={(routeProps) =>
-              route.component
-                ? renderMergedProps(route.component, routeProps, route)
-                : null
-            }
-            {...route}
-          />
-        ))}
-        <Route element={<h1>Not found</h1>} />
-      </DomRoutes>
-    </BrowserRouter>
+    <DomRoutes>
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/add-product"
+        element={
+          <PrivateRoute>
+            <AddProduct />
+          </PrivateRoute>
+        }
+      />
+
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<h1>Not found</h1>} />
+    </DomRoutes>
   )
 }
