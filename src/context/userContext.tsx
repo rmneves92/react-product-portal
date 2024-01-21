@@ -9,8 +9,6 @@ export const UserProvider: FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<IUser | null>(null)
 
   const updateUser = (newUser: IUser | null) => {
-    console.log('__updateUser: ', newUser)
-
     setUser(newUser)
   }
 
