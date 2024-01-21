@@ -2,19 +2,39 @@ import { useEffect, useState } from 'react'
 import { useUser } from '@/context/userContext'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { Alert, Button, Snackbar, TextField, Typography } from '@mui/material'
+import {
+  Alert,
+  Button,
+  Container,
+  Paper,
+  Snackbar,
+  Typography
+} from '@mui/material'
 import { useFetchUser } from '@/hooks/useFetchUser'
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
+import { TextField } from '@/components/text-field'
+
+const initialValues = {
+  email: 'Jamir.Keeling57@hotmail.com',
+  senha: 'kmbaWaQBBRVi2Cn'
+}
 
 export const Login = () => {
   const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+  const [password, setPassword] = useState('')
   const [showAlert, setShowAlert] = useState(false)
   const { updateUser } = useUser()
   const navigate = useNavigate()
   const { fetchUser, isLoading, isError, user } = useFetchUser()
 
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required('Campo obrigatório'),
+    senha: Yup.string().required('Campo obrigatório')
+  })
+
   const handleLogin = async () => {
-    fetchUser(email, senha)
+    fetchUser(email, password)
   }
 
   useEffect(() => {
@@ -44,7 +64,7 @@ export const Login = () => {
   }
 
   return (
-    <section>
+    <>
       <Snackbar
         open={showAlert}
         autoHideDuration={6000}
@@ -60,26 +80,63 @@ export const Login = () => {
         </Alert>
       </Snackbar>
 
-      <Typography variant="h1">Login</Typography>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+      >
+        {({ errors, touched }) => (
+          <Container maxWidth="sm">
+            <Paper
+              elevation={3}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '20px',
+                margin: '20px auto'
+              }}
+            >
+              <Form
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: '60%'
+                }}
+              >
+                <Typography variant="h4">Login</Typography>
 
-      <form>
-        <TextField
-          label="Email"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Senha"
-          type="password"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-        />
-        <Button variant="contained" onClick={handleLogin}>
-          Entrar
-        </Button>
-      </form>
-      {isLoading && <p>Carregando...</p>}
-    </section>
+                <TextField
+                  label="E-mail"
+                  fieldName="email"
+                  errors={errors}
+                  touched={touched}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                  label="Senha"
+                  fieldName="senha"
+                  type="password"
+                  errors={errors}
+                  touched={touched}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <Button
+                  variant="contained"
+                  onClick={handleLogin}
+                  style={{ marginTop: '2rem' }}
+                >
+                  Entrar
+                </Button>
+              </Form>
+            </Paper>
+          </Container>
+        )}
+      </Formik>
+    </>
   )
 }
