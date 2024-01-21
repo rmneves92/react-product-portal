@@ -10,7 +10,7 @@ export function SidebarItem({ text, url }: Props) {
   const isActive = pathname === url
 
   return (
-    <S.SidebarItem isActive={!!isActive} href={url}>
+    <S.SidebarItem isActive={!!isActive} to={url}>
       <span>{text}</span>
     </S.SidebarItem>
   )

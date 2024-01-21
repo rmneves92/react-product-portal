@@ -1,25 +1,26 @@
 import { Profile } from '@/components/profile'
-const mockProfile = {
-  imageUrl: '',
-  imageAlt: 'Foto de perfil do usuário',
-  name: 'Nome sobrenome'
-}
-
+import { useUser } from '@/context/userContext'
 import * as S from './styles'
 
 export function Header() {
+  const { user } = useUser()
+
   return (
     <S.Wrapper>
-      <a href="/">
-        <p>Home</p>
-      </a>
+      <p>React Product Portal</p>
 
       <section>
-        <Profile
-          imageUrl={mockProfile.imageUrl}
-          imageAlt={mockProfile.imageAlt}
-          name={mockProfile.name}
-        />
+        {user ? (
+          <>
+            <Profile
+              imageUrl={user.image}
+              imageAlt={`Foto de perfil de ${user.nome}`}
+              name={user.nome}
+            />
+          </>
+        ) : (
+          <p>Faça login</p>
+        )}
       </section>
     </S.Wrapper>
   )

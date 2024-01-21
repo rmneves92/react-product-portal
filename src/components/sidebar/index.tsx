@@ -3,8 +3,12 @@ import { SidebarItem } from '@/components/sidebar/sidebar-item'
 
 const sidebarItems = [
   {
-    name: 'Login',
-    url: '/login'
+    name: 'Lista de Produtos',
+    url: '/home'
+  },
+  {
+    name: 'Cadastrar Produto',
+    url: '/cadastrar'
   }
 ]
 

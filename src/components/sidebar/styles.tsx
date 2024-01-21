@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const Wrapper = styled.aside`
   width: 216px;
@@ -13,7 +14,7 @@ type SidebarItemProps = {
   isActive: boolean
 }
 
-export const SidebarItem = styled.a<SidebarItemProps>`
+export const SidebarItem = styled(Link)<SidebarItemProps>`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -29,7 +30,7 @@ export const SidebarItem = styled.a<SidebarItemProps>`
   ${({ theme, isActive }) => css`
     color: ${isActive
       ? theme.colors.neutral['300']
-      : theme.colors.neutral['900']};
+      : theme.colors.neutral['500']};
 
     > span {
       font-size: 1.2rem;
