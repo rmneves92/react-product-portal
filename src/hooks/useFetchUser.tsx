@@ -21,11 +21,9 @@ export const useFetchUser = () => {
         setUser(authenticatedUser)
       } else {
         setIsError(true)
-        console.error('Usuário ou senha inválidos')
       }
     } catch (error) {
       setIsError(true)
-      console.error('Erro ao buscar usuário:', error)
     } finally {
       setIsLoading(false)
     }
