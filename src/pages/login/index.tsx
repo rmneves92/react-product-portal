@@ -33,10 +33,6 @@ export const Login = () => {
     senha: Yup.string().required('Campo obrigatório')
   })
 
-  const handleLogin = async () => {
-    fetchUser(email, password)
-  }
-
   useEffect(() => {
     updateUser(null)
     Cookies.remove('token')
@@ -61,6 +57,14 @@ export const Login = () => {
     }
 
     setShowAlert(false)
+  }
+
+  const handleLogin = async () => {
+    fetchUser(email, password)
+  }
+
+  const handleRegister = () => {
+    navigate('/registrar')
   }
 
   return (
@@ -131,6 +135,14 @@ export const Login = () => {
                   style={{ marginTop: '2rem' }}
                 >
                   Entrar
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  onClick={handleRegister}
+                  style={{ marginTop: '2rem' }}
+                >
+                  Registrar
                 </Button>
               </Form>
             </Paper>

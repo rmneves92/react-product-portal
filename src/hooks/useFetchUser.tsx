@@ -29,5 +29,21 @@ export const useFetchUser = () => {
     }
   }
 
-  return { user, isLoading, isError, fetchUser }
+  const registerUser = async (userData) => {
+    try {
+      setIsLoading(true)
+      setIsError(false)
+
+      const response = await api.post<IUser>('/v1/user', userData)
+      const registeredUser = response.data
+
+      setUser(registeredUser)
+    } catch (error) {
+      setIsError(true)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return { user, isLoading, isError, fetchUser, registerUser }
 }

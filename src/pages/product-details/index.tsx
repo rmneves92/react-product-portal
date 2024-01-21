@@ -17,10 +17,8 @@ import { Spinner } from '@/components/spinner'
 
 export const ProductDetails = () => {
   const { id } = useParams()
-
   const { data, error, isLoading, deleteProductHandler } = useFetchProduct(id)
   const navigate = useNavigate()
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const handleEditClick = () => {
@@ -64,33 +62,42 @@ export const ProductDetails = () => {
           margin: '20px auto'
         }}
       >
-        <Typography variant="h4">{data.nome}</Typography>
+        <Typography variant="h4" style={{ marginBottom: '10px' }}>
+          {data.nome}
+        </Typography>
 
-        {data.avatar && <CardMedia component="img" image={data.avatar} />}
+        {data.avatar && (
+          <CardMedia
+            component="img"
+            image={data.avatar}
+            style={{ marginBottom: '10px' }}
+          />
+        )}
 
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <Typography>
+            <Typography style={{ fontSize: '1.2rem' }}>
               <strong>Preço:</strong> R$ {parseFloat(data.preco).toFixed(2)}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography>
+            <Typography style={{ fontSize: '1.2rem' }}>
               <strong>Quantidade em Estoque:</strong> {data.qt_estoque}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography>
+            <Typography style={{ fontSize: '1.2rem' }}>
               <strong>Quantidade de Vendas:</strong> {data.qt_vendas}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography>
+            <Typography style={{ fontSize: '1.2rem' }}>
               <strong>Marca:</strong> {data.marca}
             </Typography>
           </Grid>
         </Grid>
-        <Box mt={3}>
+
+        <Box mt={3} display="flex" gap={2}>
           <Button
             variant="contained"
             onClick={handleEditClick}
@@ -106,6 +113,7 @@ export const ProductDetails = () => {
             Remover
           </Button>
         </Box>
+
         <Modal open={isDeleteModalOpen} onClose={handleDeleteCancel}>
           <Box
             sx={{
@@ -125,7 +133,7 @@ export const ProductDetails = () => {
             <Button
               onClick={handleDeleteConfirm}
               variant="contained"
-              sx={{ mr: 2 }}
+              sx={{ marginRight: '10px' }}
             >
               Confirmar
             </Button>

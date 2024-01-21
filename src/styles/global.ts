@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     background-color: ${theme.colors.neutral['200']};
-    font-family: Poppins;
+    font-family: Figtree;
   }
 
   html {
