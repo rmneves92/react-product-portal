@@ -1,12 +1,12 @@
 export interface IProduct {
-  createdAt: string
+  createdAt?: string
   nome: string
   avatar: string
   preco: string
   qt_estoque: number
   qt_vendas: number
   marca: string
-  id: string
+  id?: string
   product?: {
     avatar: string
     nome: string

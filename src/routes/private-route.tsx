@@ -13,8 +13,8 @@ interface PrivateRouteProps {
 export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   children
 }) => {
-  const { updateUser } = useUser()
-  const userIsLogged = !!Cookies.get('token')
+  const { updateUser, user } = useUser()
+  const userIsLogged = !!Cookies.get('token') && user
 
   if (!userIsLogged) {
     updateUser(null)
