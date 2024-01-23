@@ -16,8 +16,8 @@ import * as Yup from 'yup'
 import { TextField } from '@/components/text-field'
 
 const initialValues = {
-  email: 'Jamir.Keeling57@hotmail.com',
-  senha: 'kmbaWaQBBRVi2Cn'
+  email: '',
+  senha: ''
 }
 
 export const Login = () => {
@@ -117,7 +117,9 @@ export const Login = () => {
                   errors={errors}
                   touched={touched}
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setEmail(e.target.value)
+                  }
                 />
                 <TextField
                   label="Senha"
@@ -126,7 +128,9 @@ export const Login = () => {
                   errors={errors}
                   touched={touched}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setPassword(e.target.value)
+                  }
                 />
 
                 <Button

@@ -1,7 +1,7 @@
 import { Paper, Container, Snackbar, Alert, Box } from '@mui/material'
 import { ProductForm } from '@/components/product-form'
 import { useParams } from 'react-router-dom'
-import { useFetchProduct } from '@/hooks/useFetchProduct'
+import { useProduct } from '@/hooks/useProduct'
 import { Spinner } from '@/components/spinner'
 import { useState } from 'react'
 
@@ -9,7 +9,7 @@ export const EditProduct = () => {
   const { id } = useParams()
   const [showAlert, setShowAlert] = useState(false)
 
-  const { data, error, isLoading, editProduct } = useFetchProduct(id)
+  const { data, error, isLoading, editProduct } = useProduct(id)
 
   if (isLoading) {
     return <Spinner />

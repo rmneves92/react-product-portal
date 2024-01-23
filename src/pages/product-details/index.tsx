@@ -1,4 +1,4 @@
-import { useFetchProduct } from '@/hooks/useFetchProduct'
+import { useProduct } from '@/hooks/useProduct'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
@@ -17,7 +17,9 @@ import { Spinner } from '@/components/spinner'
 
 export const ProductDetails = () => {
   const { id } = useParams()
-  const { data, error, isLoading, deleteProductHandler } = useFetchProduct(id)
+  const { data, error, isLoading, deleteProductHandler } = useProduct(
+    String(id)
+  )
   const navigate = useNavigate()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
@@ -36,6 +38,11 @@ export const ProductDetails = () => {
 
   const handleDeleteCancel = () => {
     setIsDeleteModalOpen(false)
+  }
+
+  const handleImageError = (e) => {
+    e.target.onerror = null
+    e.target.src = 'https://picsum.photos/seed/picsum/200/300'
   }
 
   if (isLoading) {
@@ -58,23 +65,42 @@ export const ProductDetails = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '20px',
-          margin: '20px auto'
+          padding: '2rem',
+          margin: '2rem auto'
         }}
       >
+        <Box mt={3} mb={3} display="flex" gap={2}>
+          <Button
+            variant="contained"
+            onClick={handleEditClick}
+            startIcon={<EditIcon />}
+          >
+            Editar
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={handleDeleteClick}
+            startIcon={<DeleteIcon />}
+          >
+            Remover
+          </Button>
+        </Box>
+
         <Typography variant="h4" style={{ marginBottom: '10px' }}>
           {data.nome}
         </Typography>
 
-        {data.avatar && (
-          <CardMedia
-            component="img"
-            image={data.avatar}
-            style={{ marginBottom: '10px' }}
-          />
-        )}
+        <CardMedia
+          alt={data.nome}
+          image={data.avatar}
+          style={{ marginBottom: '10px' }}
+          onError={handleImageError}
+          component="img"
+          height="250"
+          sx={{ padding: '2rem', objectFit: 'contain' }}
+        />
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} mt={1} p={4}>
           <Grid item xs={12} sm={6}>
             <Typography style={{ fontSize: '1.2rem' }}>
               <strong>Preço:</strong> R$ {parseFloat(data.preco).toFixed(2)}
@@ -96,23 +122,6 @@ export const ProductDetails = () => {
             </Typography>
           </Grid>
         </Grid>
-
-        <Box mt={3} display="flex" gap={2}>
-          <Button
-            variant="contained"
-            onClick={handleEditClick}
-            startIcon={<EditIcon />}
-          >
-            Editar
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={handleDeleteClick}
-            startIcon={<DeleteIcon />}
-          >
-            Remover
-          </Button>
-        </Box>
 
         <Modal open={isDeleteModalOpen} onClose={handleDeleteCancel}>
           <Box
