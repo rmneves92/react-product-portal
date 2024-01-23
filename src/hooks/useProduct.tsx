@@ -38,7 +38,19 @@ async function deleteProduct(productId: string): Promise<void> {
   }
 }
 
-export const useFetchProduct = (productId: string) => {
+async function addProduct(newProduct: IProduct): Promise<ProductApiResponse> {
+  try {
+    const response = await api.post<ProductApiResponse>(
+      '/v1/produto',
+      newProduct
+    )
+    return response.data
+  } catch (error) {
+    throw new Error('Error adding product')
+  }
+}
+
+export const useProduct = (productId: string) => {
   const [data, setData] = useState<ProductApiResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -91,5 +103,20 @@ export const useFetchProduct = (productId: string) => {
     }
   }
 
-  return { data, error, isLoading, editProduct, deleteProductHandler }
+  const addProductHandler = async (newProduct: IProduct): Promise<void> => {
+    try {
+      await addProduct(newProduct)
+    } catch (error) {
+      throw new Error('Error adding product')
+    }
+  }
+
+  return {
+    data,
+    error,
+    isLoading,
+    editProduct,
+    deleteProductHandler,
+    addProductHandler
+  }
 }

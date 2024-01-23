@@ -39,6 +39,7 @@ export const useFetchUser = () => {
 
       setUser(registeredUser)
     } catch (error) {
+      console.error(error)
       setIsError(true)
     } finally {
       setIsLoading(false)

@@ -15,7 +15,7 @@ async function fetchProducts(): Promise<ProductsApiResponse> {
   }
 }
 
-export const useFetchProducts = () => {
+export const useProducts = () => {
   const [data, setData] = useState<ProductsApiResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
