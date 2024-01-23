@@ -3,6 +3,8 @@ import { ProductForm } from '@/components/product-form'
 import { useProduct } from '@/hooks/useProduct'
 import { Spinner } from '@/components/spinner'
 import { useState } from 'react'
+import { FormikHelpers } from 'formik'
+import { IProduct } from '@/@types/product'
 
 export const AddProduct = () => {
   const initialValues = {
@@ -18,7 +20,10 @@ export const AddProduct = () => {
 
   const { isLoading, addProductHandler } = useProduct('')
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async (
+    values: IProduct,
+    { resetForm }: FormikHelpers<IProduct>
+  ) => {
     try {
       await addProductHandler(values)
       resetForm()

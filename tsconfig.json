@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "noErrorTruncation": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
     "baseUrl": "./",
     "types": ["vite/client"],
     "target": "ES2020",
@@ -27,8 +31,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+
+
   "include": [
-    ".jest/setup.js",
     "**/*.ts",
     "**/*.tsx",
     "vite.config.js",

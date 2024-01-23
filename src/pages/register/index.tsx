@@ -1,4 +1,4 @@
-import { Formik, Form } from 'formik'
+import { Formik, Form, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 import {
   Paper,
@@ -12,6 +12,7 @@ import { TextField } from '@/components/text-field'
 import { useNavigate } from 'react-router-dom'
 import { useFetchUser } from '@/hooks/useFetchUser'
 import { useState, useEffect } from 'react'
+import { IUser } from '@/@types/user'
 
 const initialValues = {
   nome: '',
@@ -37,7 +38,10 @@ export const RegisterUser = () => {
     dt_nascimento: Yup.string().required('Campo obrigatório')
   })
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async (
+    values: IUser,
+    { resetForm }: FormikHelpers<IUser>
+  ) => {
     try {
       await registerUser(values)
       resetForm()

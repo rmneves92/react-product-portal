@@ -1,9 +1,11 @@
-import { Paper, Container, Snackbar, Alert, Box } from '@mui/material'
+import { Paper, Container, Snackbar, Alert } from '@mui/material'
 import { ProductForm } from '@/components/product-form'
 import { useParams } from 'react-router-dom'
 import { useProduct } from '@/hooks/useProduct'
 import { Spinner } from '@/components/spinner'
 import { useState } from 'react'
+import { FormikHelpers } from 'formik'
+import { IProduct } from '@/@types/product'
 
 export const EditProduct = () => {
   const { id } = useParams()
@@ -23,7 +25,10 @@ export const EditProduct = () => {
     return <p>Produto não encontrado.</p>
   }
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (
+    values: IProduct,
+    { resetForm }: FormikHelpers<IProduct>
+  ) => {
     editProduct(values)
     resetForm()
     setShowAlert(true)
