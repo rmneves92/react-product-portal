@@ -49,9 +49,7 @@ export const Routes: FC = () => {
       />
 
       <Route path="/login" element={<Login />} />
-
       <Route path="/registrar" element={<RegisterUser />} />
-
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="*" element={<h1>Página não encontrada</h1>} />
     </DomRoutes>

@@ -41,14 +41,10 @@ export const RegisterUser = () => {
     try {
       await registerUser(values)
       resetForm()
-      navigate('/login')
     } catch (error) {
       console.error('Erro ao registrar usuário:', error)
+      setShowAlert(true)
     }
-  }
-
-  const handleLogin = () => {
-    navigate('/login')
   }
 
   const handleCloseAlert = () => {
@@ -152,12 +148,12 @@ export const RegisterUser = () => {
               </Button>
 
               <Button
-                type="submit"
+                type="button"
                 variant="outlined"
                 style={{ marginTop: '2rem' }}
-                onClick={handleLogin}
+                onClick={() => navigate('/login')}
               >
-                ir para login
+                Ir para login
               </Button>
             </Form>
           </Paper>
